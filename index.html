@@ -1,14 +1,3 @@
-El análisis del código revela un error crítico que explica exactamente por qué el juego se congela a los 30 segundos (cuando se alcanza el Nivel de Búsqueda 3) pero funciona bien en el modo BOSS (Nivel 5) o con el tanque.
-El Error Principal
-El error es un ReferenceError: showWarning is not defined.
- * Aproximadamente a los 30 segundos, el jugador consigue suficientes puntos para subir al Nivel 3 (Estrellas).
- * El código intenta invocar a los "Gemelos" (TwinBosses).
- * En esa sección del código, hay una línea que dice: showWarning("¡GEMELOS ZZ!");.
- * Esa función no existe en ninguna parte del script. Al intentar ejecutarla, JavaScript lanza un error fatal y el bucle del juego (requestAnimationFrame) se detiene inmediatamente, congelando la pantalla.
- * En el modo BOSS (Tanque), el código usa manualmente document.getElementById('bossWarning')..., por lo que no falla.
-Solución
-He reescrito el código solucionando este problema (creando la función faltante) y he añadido algunas validaciones de seguridad para evitar que las físicas generen valores infinitos (que también podrían congelar el navegador).
-Aquí tienes el código completo arreglado, listo para copiar y pegar:
 <!DOCTYPE html>
 <html lang="es">
 <head>
